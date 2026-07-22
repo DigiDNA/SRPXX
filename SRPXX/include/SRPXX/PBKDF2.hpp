@@ -28,6 +28,8 @@
 #include <SRPXX/HashAlgorithm.hpp>
 #include <string>
 #include <vector>
+#include <cstdint>
+#include <cstddef>
 
 namespace SRP
 {

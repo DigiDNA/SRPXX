@@ -38,6 +38,24 @@
 #pragma clang diagnostic pop
 #endif
 
+#ifndef OPENSSL_IS_BORINGSSL
+
+/* Compatibility shims for OpenSSL,  these APIs are BoringSSL-only */
+
+static int BN_bn2le_padded( uint8_t * out, size_t outLen, const BIGNUM * in )
+{
+    return ( BN_bn2lebinpad( in, out, static_cast< int >( outLen ) ) < 0 ) ? 0 : 1;
+}
+
+static int BN_set_u64( BIGNUM * bn, uint64_t value )
+{
+    static_assert( sizeof( BN_ULONG ) >= sizeof( uint64_t ), "BN_ULONG must be at least 64 bits" );
+
+    return BN_set_word( bn, static_cast< BN_ULONG >( value ) );
+}
+
+#endif
+
 namespace SRP
 {
     class BigNum::IMPL

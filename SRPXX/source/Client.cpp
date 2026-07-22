@@ -170,8 +170,10 @@ namespace SRP
     {
         if( this->_password.size() > 0 )
         {
-            #ifdef _WIN32
+            #if defined( _WIN32 )
             SecureZeroMemory( this->_password.data(), this->_password.size() );
+            #elif defined( __linux__ )
+            explicit_bzero( this->_password.data(), this->_password.size() );
             #else
             memset_s( this->_password.data(), this->_password.size(), 0, this->_password.size() );
             #endif

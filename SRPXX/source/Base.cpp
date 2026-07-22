@@ -34,6 +34,7 @@
 #include <string>
 #include <cctype>
 #include <stdexcept>
+#include <algorithm>
 #include <string.h>
 
 #ifdef _WIN32
@@ -250,8 +251,10 @@ namespace SRP
     {
         if( this->_salt.size() > 0 )
         {
-            #ifdef _WIN32
+            #if defined( _WIN32 )
             SecureZeroMemory( this->_salt.data(), this->_salt.size() );
+            #elif defined( __linux__ )
+            explicit_bzero( this->_salt.data(), this->_salt.size() );
             #else
             memset_s( this->_salt.data(), this->_salt.size(), 0, this->_salt.size() );
             #endif

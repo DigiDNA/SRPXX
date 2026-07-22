@@ -24,6 +24,7 @@
 
 #include <SRPXX.hpp>
 #include <XSTest/XSTest.hpp>
+#include <climits>
 
 XSTest( BigNum, FromString_Auto )
 {

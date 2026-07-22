@@ -24,6 +24,7 @@
 
 #include <SRPXX/SHA256.hpp>
 #include <openssl/sha.h>
+#include <cstring>
 
 namespace SRP
 {
